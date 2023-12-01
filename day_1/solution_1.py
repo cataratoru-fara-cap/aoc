@@ -20,7 +20,7 @@ def solution1_1(file):
 def solution1_2(file):
     my_file = open(f"{file}", "r")
     lines = my_file.readlines()
-    nums = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
+    nums = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"] # noqa
     ans = 0
     for line in lines:
         digits = []
