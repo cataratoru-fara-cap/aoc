@@ -5,8 +5,8 @@ for i in range(len(file)):
     codes = [item.split() for item in codes.split("\n") if item != ""]
     processed_data_dict[key] = codes
 
-for k, v in processed_data_dict.items():
-    print(k, v)
+# for k, v in processed_data_dict.items():
+#     print(k, v)
 
 
 def locator(seed):
@@ -21,24 +21,22 @@ def locator(seed):
 
 
 seeds = [int(i) for i in list(processed_data_dict.values())[0][0]]
+
 locations_1 = []
 for loc in seeds:  # gets the seed values
     seed_dest = locator(int(loc))
     locations_1.append(seed_dest)
 
 # print(locations_1)
-#print(min(locations_1))
+# print(min(locations_1))
 
 locations_2 = []
-i = 0
-j = 1
 
-while (j <= len(seeds) - 1):
-    for k in range(seeds[i], seeds[i] + seeds[j]):
+for i in range(0, len(seeds) - 1, 2):
+    for k in range(seeds[i], seeds[i] + seeds[i+1]):  # seeds[i] + seeds[i+1]):
         seed_dest = locator(k)
+        print(seed_dest)
         locations_2.append(seed_dest)
-    i += 2
-    j += 2
 
 # print(locations_2)
 print(min(locations_2))
