@@ -20,11 +20,25 @@ def locator(seed):
     return curNum
 
 
-locations = []
-for loc in list(processed_data_dict.values())[0]:  # gets the seed values
-    for sub_loc in loc:  # loc is a list of lists with values
-        seed_dest = locator(int(sub_loc))
-        locations.append(seed_dest)
+seeds = [int(i) for i in list(processed_data_dict.values())[0][0]]
+locations_1 = []
+for loc in seeds:  # gets the seed values
+    seed_dest = locator(int(loc))
+    locations_1.append(seed_dest)
 
-print(locations)
-print(min(locations))
+# print(locations_1)
+#print(min(locations_1))
+
+locations_2 = []
+i = 0
+j = 1
+
+while (j <= len(seeds) - 1):
+    for k in range(seeds[i], seeds[i] + seeds[j]):
+        seed_dest = locator(k)
+        locations_2.append(seed_dest)
+    i += 2
+    j += 2
+
+# print(locations_2)
+print(min(locations_2))
