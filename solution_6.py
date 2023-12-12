@@ -6,9 +6,15 @@ def parser(file):
     return times, distances
     # print(speed, time)
 
+def parser2(file):
+    file = open(f"{file}", "r").read().split("\n")
+    times, distances = [[int(row.split(":")[1].replace(" ", ""))]
+                        for row in file]
+    return times, distances
+
 
 times, max_distances = parser("input6.txt")
-
+times2, max_distances2 = parser2("input6.txt")
 
 def solver(times, max_distances):
     ans = 0
@@ -28,3 +34,4 @@ def solver(times, max_distances):
 
 
 print(solver(times, max_distances))
+print(solver(times2, max_distances2))
