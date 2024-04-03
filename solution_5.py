@@ -39,4 +39,3 @@ seeds = processed_data_dict["seeds"]
 maps = list(processed_data_dict.values())[1:]
 
 print(seeds, "\n", maps)
-
