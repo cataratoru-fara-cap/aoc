@@ -1,10 +1,11 @@
 import winsound
 
+
 def find_guard(file: list) -> tuple[int, int]:
     for i in range(len(file)):
         for j in range(len(file[i])):
             if file[i][j] == "^":
-                return (i, j)
+                return (j, i) #return x, y
 
 
 def move_left() -> None:
@@ -30,11 +31,10 @@ def move_down() -> None:
     y += 1
     marks[y][x] = "v"
 
-def read_input(name: str) -> list:
-    file = open(name, "r")
-    file = [[char for char in line.strip()] for line in file.readlines()]
-    return file
 
+# file = open("input.txt", "r")
+# file = [[char for char in line.strip()] for line in file.readlines()]
+# marks = file
 
 # part1
 # y, x = find_guard(file)
@@ -79,69 +79,39 @@ def read_input(name: str) -> list:
 
 # print(sum1)
 # part 2
-file = read_input("demo.txt")
-loc = find_guard(file)
-sum2 = 0
-for i in range(len(file)):
-    for j in range(len(file[i])):
-        marks = read_input("demo.txt")
-        command = "up"
-        visited = [0, 0, 0, 0]
-        y, x = loc
-        if marks[i][j] != "#" and marks[i][j] != "^":
-            marks[i][j] = "#"
-            pos = (i, j)
+area = open("input.txt").readlines()
+loc = find_guard(area)
+steps = [(0, -1), (1, 0), (0, 1), (-1, 0)]
+total = 0
+x_start, y_start = loc[0], loc[1]
+x, y, direction, locations = x_start, y_start, 0, set()
+#compute the original path
+while True:
+    locations.add((x, y))
+    x1, y1 = x + steps[direction][0], y + steps[direction][1]
+    if not (0 < x1 < 130 and 0 <= y1 < 130):
+        break
+    if area[y1][x1] == "#":
+        direction = (direction + 1) % 4
+    x, y = x + steps[direction][0], y + steps[direction][1]
+
+#only try to start infinete loops on the original path
+for location in locations:
+    x, y, direction, visited = x_start, y_start, 0, set()
+    while True:
+        if (x, y, direction) in visited:
+            total += 1
+            break
+        visited.add((x, y, direction))
+        x1, y1 = x + steps[direction][0], y + steps[direction][1]
+        if not (0 < x1 < 130 and 0 <= y1 < 130):
+            break
+        if area[y1][x1] == "#" or (x1, y1) == location:
+            direction = (direction + 1) % 4
         else:
-            continue
+            x, y = x + steps[direction][0], y + steps[direction][1]
 
-        while (True):
-            marks[y][x] = 'X'
-            if (y == 0 or x == 0 or
-                (y == len(file) - 1) or
-                    (x == len(file) - 1)):
-                break
-
-            match command:
-                case "up":
-                    if marks[y-1][x] != "#":
-                        move_up()
-                    elif (y-1, x) == pos:
-                        visited[0] += 1
-                        command = "right"
-                    else:
-                        command = "right"
-                case "right":
-                    if marks[y][x + 1] != "#":
-                        move_right()
-                    elif (y, x+1) == pos:
-                        visited[1] += 1
-                        command = "down"
-                    else:
-                        command = "down"
-                case "down":
-                    if marks[y+1][x] != "#":
-                        move_down()
-                    elif (y+1, x) == pos:
-                        visited[2] += 1
-                        command = "left"
-                    else:
-                        command = "left"
-                case "left":
-                    if marks[y][x-1] != "#":
-                        move_left()
-                    elif (y, x-1) == pos:
-                        visited[3] += 1
-                        command = "up"
-                    else:
-                        command = "up"
-                case _:
-                    print("Unknown command")
-
-            if 2 in visited:
-                sum2 += 1
-                break
-
-print(sum2)
+print(total)
 
 
 def play_sound():
