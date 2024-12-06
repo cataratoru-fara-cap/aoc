@@ -4,28 +4,36 @@ def star_search(chr: str, pos: tuple, size: tuple, mat: list) -> int:
     y = pos[0]
     x = pos[1]
     if chr == 'X':
-        if line(x, y, "left", size) and (mat[y][x-1] + mat[y][x-2] + mat[y][x-3] == "MAS"):
+        if line(x, y, "left", size) and \
+                (mat[y][x-1] + mat[y][x-2] + mat[y][x-3] == "MAS"):
             sum += 1
 
-        if line(x, y, "up", size) and (mat[y-1][x] + mat[y-2][x] + mat[y-3][x] == "MAS"):
+        if line(x, y, "up", size) and \
+                (mat[y-1][x] + mat[y-2][x] + mat[y-3][x] == "MAS"):
             sum += 1
 
-        if line(x, y, "right", size) and (mat[y][x+1] + mat[y][x+2] + mat[y][x+3] == "MAS"):
+        if line(x, y, "right", size) and \
+                (mat[y][x+1] + mat[y][x+2] + mat[y][x+3] == "MAS"):
             sum += 1
 
-        if line(x, y, "down", size) and (mat[y+1][x] + mat[y+2][x] + mat[y+3][x] == "MAS"):
+        if line(x, y, "down", size) and \
+                (mat[y+1][x] + mat[y+2][x] + mat[y+3][x] == "MAS"):
             sum += 1
 
-        if line(x, y, "dRightUp", size) and mat[y-1][x+1] + mat[y-2][x+2] + mat[y-3][x+3] == "MAS":
-            sum += 1 
+        if line(x, y, "dRightUp", size) and \
+               (mat[y-1][x+1] + mat[y-2][x+2] + mat[y-3][x+3] == "MAS"):
+            sum += 1
 
-        if line(x, y, "dLeftUp", size) and mat[y-1][x-1] + mat[y-2][x-2] + mat[y-3][x-3] == "MAS":
-            sum += 1 
+        if line(x, y, "dLeftUp", size) and \
+               (mat[y-1][x-1] + mat[y-2][x-2] + mat[y-3][x-3] == "MAS"):
+            sum += 1
 
-        if line(x, y, "dRightDown", size) and mat[y+1][x+1] + mat[y+2][x+2] + mat[y+3][x+3] == "MAS":
-            sum += 1 
+        if line(x, y, "dRightDown", size) and \
+               (mat[y+1][x+1] + mat[y+2][x+2] + mat[y+3][x+3] == "MAS"):
+            sum += 1
 
-        if line(x, y, "dLeftDown", size) and mat[y+1][x-1] + mat[y+2][x-2] + mat[y+3][x-3] == "MAS":
+        if line(x, y, "dLeftDown", size) and \
+               (mat[y+1][x-1] + mat[y+2][x-2] + mat[y+3][x-3] == "MAS"):
             sum += 1
 
     return sum
