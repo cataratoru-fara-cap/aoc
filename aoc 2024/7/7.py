@@ -8,7 +8,7 @@ def digits(n: int) -> int:
 
 # this function is broken and I don t know why
 def endswith(test_value: int, num: int) -> bool:
-    return (test_value - num % 10) % 10 == 0  
+    return (test_value - num % 10) % 10 == 0
 
 
 def valid_eq(test_value: int, numbers: list[int]) -> int:
