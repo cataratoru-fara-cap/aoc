@@ -17,7 +17,7 @@ def blink(stones: list[str]) -> list[str]:
 
 
 stones = open("input.txt").read().split()
-for _ in range(26):
+for _ in range(75):
     new_stones = blink(stones)
     stones = new_stones
 
